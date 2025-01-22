@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "mynewproj",
+    "serviceName": "AppSync",
+    "defaultAuthType": {
+      "mode": "OPENID_CONNECT",
+      "openIDProviderName": "auth0",
+      "openIDIssuerURL": "https://dev-t0s067pnrpcdsto8.us.auth0.com/api/v2/",
+      "openIDClientID": "Uul2MSBfb90Un27K8mNu2265b8SchStc",
+      "openIDAuthTTL": "2592000",
+      "openIDIatTTL": "36000"
+    }
+  }
+}

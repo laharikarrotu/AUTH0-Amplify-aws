@@ -1,0 +1,78 @@
+# This "input" configures a global authorization rule to enable public access to
+# all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
+type User @model @auth(rules: [{ allow: owner, provider: oidc }]) {
+  id: ID!
+  username: String!
+  email: String!
+  stores: [Store] @hasMany
+  orders: [Order] @hasMany
+  reviews: [Review] @hasMany
+}
+
+type Store @model @auth(rules: [{ allow: owner, provider: oidc }]) {
+  id: ID!
+  name: String!
+  description: String
+  ownerId: ID!
+  owner: User @belongsTo(fields: ["ownerId"])
+  products: [Product] @hasMany
+}
+
+type Product @model @auth(rules: [{ allow: owner, provider: oidc }]) {
+  id: ID!
+  name: String!
+  description: String
+  price: Float!
+  inStock: Boolean!
+  storeId: ID!
+  store: Store @belongsTo(fields: ["storeId"])
+  categoryId: ID!
+  category: Category @belongsTo(fields: ["categoryId"])
+  reviews: [Review] @hasMany
+  orderProducts: [OrderProduct] @hasMany
+}
+
+type Order @model @auth(rules: [
+  { allow: owner, provider: oidc },
+  { allow: groups, groups: ["Admin"], provider: oidc }
+]) {
+  id: ID!
+  userId: ID!
+  user: User @belongsTo(fields: ["userId"])
+  products: [OrderProduct] @hasMany
+  totalAmount: Float!
+  createdAt: AWSDateTime
+}
+
+type OrderProduct @model @auth(rules: [
+  { allow: owner, provider: oidc },
+  { allow: groups, groups: ["Admin"], provider: oidc }
+])  {
+  id: ID!
+  orderId: ID!
+  productId: ID!
+  order: Order @belongsTo(fields: ["orderId"])
+  product: Product @belongsTo(fields: ["productId"])
+  quantity: Int!
+}
+
+type Category @model @auth(rules: [{ allow: owner, provider: oidc }]) {
+  id: ID!
+  name: String!
+  products: [Product] @hasMany
+}
+
+type Review @model @auth(rules: [
+  { allow: owner, provider: oidc }
+]) {
+  id: ID!
+  rating: Int!
+  comment: String
+  userId: ID!
+  user: User @belongsTo(fields: ["userId"])
+  productId: ID!
+  product: Product @belongsTo(fields: ["productId"])
+  createdAt: AWSDateTime
+}
+
+

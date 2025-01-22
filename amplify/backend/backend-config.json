@@ -1,0 +1,72 @@
+{
+  "api": {
+    "mynewproj": {
+      "dependsOn": [],
+      "output": {
+        "authConfig": {
+          "additionalAuthenticationProviders": [],
+          "defaultAuthentication": {
+            "authenticationType": "OPENID_CONNECT",
+            "openIDConnectConfig": {
+              "authTTL": "2592000",
+              "clientId": "Uul2MSBfb90Un27K8mNu2265b8SchStc",
+              "iatTTL": "36000",
+              "issuerUrl": "https://dev-t0s067pnrpcdsto8.us.auth0.com/api/v2/",
+              "name": "auth0"
+            }
+          }
+        }
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "AppSync"
+    }
+  },
+  "function": {
+    "syncConflictHandlerbe380ee2": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "hosting": {
+    "amplifyhosting": {
+      "lastPushTimeStamp": "2025-01-21T18:28:06.849Z",
+      "service": "amplifyhosting",
+      "type": "cicd"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_syncConflictHandlerbe380ee2_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "syncConflictHandlerbe380ee2"
+        }
+      ]
+    },
+    "AMPLIFY_function_syncConflictHandlerbe380ee2_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "syncConflictHandlerbe380ee2"
+        }
+      ]
+    },
+    "AMPLIFY_hosting_amplifyhosting_appId": {
+      "usedBy": [
+        {
+          "category": "hosting",
+          "resourceName": "amplifyhosting"
+        }
+      ]
+    },
+    "AMPLIFY_hosting_amplifyhosting_type": {
+      "usedBy": [
+        {
+          "category": "hosting",
+          "resourceName": "amplifyhosting"
+        }
+      ]
+    }
+  }
+}
