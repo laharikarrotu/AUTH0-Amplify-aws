@@ -4,6 +4,24 @@
             "source": "</^[^.]+$|\\.(?!(css|gif|ico|jpg|js|png|txt|svg|woff|ttf|map|json)$)([^.]+$)/>",
             "target": "/index.html",
             "status": "200"
+        },
+        {
+            "source":" </^(?!index/.html|service-worker/.js|favicon/.ico|logo/d+/.png$).*$>",
+            "target": "/index.html",
+            "status": "200"
+
+        },
+        {
+                "source": "</^(?!.*/.[a-zA-Z0-9]+$).*$>",
+                "target": "/index.html",
+                "status": "200"
+    
+        },
+        {
+            "source": "/*",
+            "target":"/index.html",
+            "status": "200"
         }
+
     ]
 }
