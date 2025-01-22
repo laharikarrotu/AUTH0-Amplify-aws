@@ -3,15 +3,14 @@ frontend:
   phases:
     preBuild:
       commands:
-        - cd vite-project
-        - npm install
+        - npm ci
     build:
       commands:
         - npm run build
   artifacts:
-    baseDirectory: vite-project/dist
+    baseDirectory: dist
     files:
       - '**/*'
   cache:
     paths:
-      - vite-project/node_modules/**/*
+      - node_modules/**/*
