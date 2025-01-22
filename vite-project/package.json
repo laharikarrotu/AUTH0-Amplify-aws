@@ -25,6 +25,7 @@
     "axios": "^1.7.9",
     "cheerio": "^1.0.0",
     "framer-motion": "^12.0.1",
+    "lucide-react": "latest",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-intersection-observer": "^9.15.1",
