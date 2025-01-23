@@ -3,68 +3,68 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Custom styles using @layer to work with Tailwind */
+/* Base styles */
 @layer base {
-  :root {
-    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-    line-height: 1.5;
-    font-weight: 400;
-    color-scheme: light dark;
-    color: rgba(255, 255, 255, 0.87);
-    background-color: #242424;
-    font-synthesis: none;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
+ :root {
+   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+   line-height: 1.5;
+   font-weight: 400;
+   color-scheme: light dark;
+   color: rgba(255, 255, 255, 0.87);
+   background-color: #242424;
+   font-synthesis: none;
+   text-rendering: optimizeLegibility;
+   -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: grayscale;
+ }
 
-  body {
-    margin: 0;
-    min-width: 320px;
-    min-height: 100vh;
-  }
+ body {
+   margin: 0;
+   min-width: 320px;
+   min-height: 100vh;
+ }
 }
 
+/* Component styles */
 @layer components {
-  a {
-    @apply font-medium text-[#646cff] no-underline;
-  }
+ a {
+   @apply font-medium text-blue-500 no-underline;
+ }
 
-  a:hover {
-    @apply text-[#535bf2];
-  }
+ a:hover {
+   @apply text-blue-600;
+ }
 
-  h1 {
-    @apply text-[3.2em] leading-tight;
-  }
+ h1 {
+   @apply text-5xl leading-tight;
+ }
 
-  button {
-    @apply rounded-lg border border-transparent px-5 py-2 text-base font-medium 
-           bg-[#1a1a1a] cursor-pointer transition-colors duration-300;
-  }
+ button {
+   @apply rounded-lg border border-transparent px-5 py-2 text-base font-medium
+          bg-gray-900 cursor-pointer transition-colors duration-300;
+ }
 
-  button:hover {
-    @apply border-[#646cff];
-  }
+ button:hover {
+   @apply border-blue-500;
+ }
 
-  button:focus,
-  button:focus-visible {
-    @apply outline outline-4 outline-offset-[-4px];
-  }
+ button:focus,
+ button:focus-visible {
+   @apply outline outline-4 outline-offset-[-4px];
+ }
 }
 
-/* Dark/Light mode preferences */
+/* Light mode */
 @media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
+ :root {
+   @apply text-gray-800 bg-white;
+ }
 
-  a:hover {
-    color: #747bff;
-  }
+ a:hover {
+   @apply text-blue-600;
+ }
 
-  button {
-    background-color: #f9f9f9;
-  }
+ button {
+   @apply bg-gray-100;
+ }
 }

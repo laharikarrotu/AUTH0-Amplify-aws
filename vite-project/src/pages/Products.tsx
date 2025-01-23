@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Product } from '../types';
-
+import { useCart } from '../contexts/CartContext';
 // Mock data for testing
 const mockProducts: Product[] = [
   {
@@ -28,6 +28,7 @@ const mockProducts: Product[] = [
 ];
 
 export function ProductsPage() {
+  const { addToCart } = useCart();
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
@@ -110,10 +111,17 @@ export function ProductsPage() {
                   <p className="mt-2 text-lg font-semibold">${product.price.toFixed(2)}</p>
                   <button 
                     className="w-full py-2 mt-4 text-white transition-colors bg-blue-600 rounded hover:bg-blue-700"
+                    
                     onClick={() => window.open(product.originalUrl, '_blank')}
                   >
                     View Details
                   </button>
+                  <button
+      className="w-full py-2 mt-4 text-white transition-colors bg-blue-600 rounded hover:bg-blue-700"
+      onClick={() => addToCart(product)}
+    >
+      Add to Cart
+    </button>
                 </div>
               </div>
             ))}

@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
+import { CartProvider } from './contexts/CartContext';
 import { Auth0Provider } from '@auth0/auth0-react';
 import { Link } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
@@ -11,6 +12,7 @@ import { CartPage } from './pages/Cart';
 import { CategoriesPage } from './pages/Categories';
 import { StoresPage } from './pages/Stores';
 import { CallbackPage } from './pages/Callback';
+import { VoiceAssistant } from './hooks/useVoiceAssistant';
 function App() {
   return (
     <Auth0Provider
@@ -24,6 +26,7 @@ function App() {
       cacheLocation="localstorage"
     >
       <AuthProvider>
+      <CartProvider>
   
           <div className="min-h-screen bg-gray-50">
             <nav className="p-4 text-white bg-gray-800">
@@ -36,6 +39,7 @@ function App() {
                 <Link to="/stores" className="hover:text-gray-300">Stores</Link>
               </div>
                 <h1 className="text-xl font-bold">Multiverse</h1>
+                <VoiceAssistant />
                 <LoginButton />
               </div>
             </nav>
@@ -50,6 +54,8 @@ function App() {
               </Routes>
             </main>
           </div>
+
+          </CartProvider>
         
       </AuthProvider>
     </Auth0Provider>
