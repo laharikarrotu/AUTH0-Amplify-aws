@@ -1,7 +1,7 @@
 // src/components/ui/Card.tsx
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Store } from 'C:/Users/santh/amplify-new-project/vite-project/src/types/store'; // Fix import path
+import { Store } from 'src/types/store';// Fix import path
 
 
 interface CardProps {

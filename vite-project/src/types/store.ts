@@ -9,3 +9,4 @@ export interface Store {
     rating: number;
     totalProducts: number;
   }
+  
