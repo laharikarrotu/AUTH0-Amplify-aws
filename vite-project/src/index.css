@@ -1,70 +1,96 @@
-/* Tailwind directives */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Base styles */
 @layer base {
  :root {
-   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-   line-height: 1.5;
-   font-weight: 400;
-   color-scheme: light dark;
-   color: rgba(255, 255, 255, 0.87);
-   background-color: #242424;
-   font-synthesis: none;
-   text-rendering: optimizeLegibility;
-   -webkit-font-smoothing: antialiased;
-   -moz-osx-font-smoothing: grayscale;
+   --primary: 59 130 246;
+   --secondary: 99 102 241;
+   --accent: 244 114 182;
+   --background: 255 255 255;
+   --text: 15 23 42;
  }
 
  body {
-   margin: 0;
-   min-width: 320px;
-   min-height: 100vh;
+   @apply m-0 min-h-screen text-slate-900 bg-white 
+          selection:bg-blue-200 antialiased;
+ }
+
+ ::selection {
+   @apply bg-blue-200/60;
  }
 }
 
-/* Component styles */
 @layer components {
- a {
-   @apply font-medium text-blue-500 no-underline;
+ .btn {
+   @apply inline-flex items-center justify-center
+          px-6 py-2 text-sm font-medium
+          rounded-lg shadow-sm
+          transition-all duration-200
+          bg-blue-500 text-white
+          hover:bg-blue-600 hover:shadow-md
+          active:scale-[0.98]
+          disabled:opacity-50 disabled:cursor-not-allowed;
  }
 
- a:hover {
-   @apply text-blue-600;
+ .input {
+   @apply w-full px-4 py-2
+          rounded-lg border border-gray-200
+          bg-white text-gray-900
+          focus:ring-2 focus:ring-blue-500
+          focus:border-transparent
+          transition-shadow duration-200;
  }
 
- h1 {
-   @apply text-5xl leading-tight;
+ .card {
+   @apply bg-white rounded-xl shadow-sm
+          hover:shadow-md
+          transition-all duration-200
+          p-6;
  }
 
- button {
-   @apply rounded-lg border border-transparent px-5 py-2 text-base font-medium
-          bg-gray-900 cursor-pointer transition-colors duration-300;
- }
-
- button:hover {
-   @apply border-blue-500;
- }
-
- button:focus,
- button:focus-visible {
-   @apply outline outline-4 outline-offset-[-4px];
+ .nav-link {
+   @apply text-gray-600 hover:text-blue-600
+          transition-colors duration-200;
  }
 }
 
-/* Light mode */
-@media (prefers-color-scheme: light) {
+@media (prefers-color-scheme: dark) {
  :root {
-   @apply text-gray-800 bg-white;
+   --background: 15 23 42;
+   --text: 241 245 249;
  }
 
- a:hover {
-   @apply text-blue-600;
+ body {
+   @apply bg-slate-900 text-slate-100;
  }
 
- button {
-   @apply bg-gray-100;
+ .card {
+   @apply bg-slate-800 hover:bg-slate-700;
  }
+
+ .input {
+   @apply bg-slate-800 border-slate-600
+          text-slate-100
+          focus:ring-blue-500;
+ }
+}
+
+/* Animations */
+@keyframes fadeIn {
+ from { opacity: 0; transform: translateY(10px); }
+ to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+ from { transform: translateX(-20px); opacity: 0; }
+ to { transform: translateX(0); opacity: 1; }
+}
+
+.animate-fade-in {
+ animation: fadeIn 0.5s ease-out;
+}
+
+.animate-slide-in {
+ animation: slideIn 0.3s ease-out;
 }

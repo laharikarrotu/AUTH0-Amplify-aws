@@ -1,15 +1,14 @@
 import React from 'react';
 import { motion, HTMLMotionProps } from 'framer-motion';
-import { colorPalette } from '../../config/theme';
 
 interface SearchInputProps extends HTMLMotionProps<'input'> {
   icon?: React.ReactNode;
 }
 
-export const SearchInput: React.FC<SearchInputProps> = ({ 
-  icon, 
-  className = '', 
-  ...props 
+export const SearchInput: React.FC<SearchInputProps> = ({
+  icon,
+  className = '',
+  ...props
 }) => {
   return (
     <div className="relative w-full">
@@ -24,10 +23,10 @@ export const SearchInput: React.FC<SearchInputProps> = ({
         transition={{ duration: 0.3 }}
         className={`
           w-full px-4 py-3 
-          border-2 border-[${colorPalette.primary.light}]
+          border-2 border-blue-300
           rounded-full 
           focus:outline-none 
-          focus:ring-2 focus:ring-[${colorPalette.primary.main}]
+          focus:ring-2 focus:ring-blue-500
           ${icon ? 'pl-10' : ''}
           ${className}
         `}

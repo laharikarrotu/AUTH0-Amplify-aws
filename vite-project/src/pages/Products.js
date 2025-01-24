@@ -1,63 +1,40 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+// src/pages/Products.tsx
 import { useState, useEffect } from 'react';
-import { useCart } from '../contexts/CartContext';
-// Mock data for testing
-const mockProducts = [
-    {
-        id: '1',
-        name: 'Nike Air Max',
-        description: 'Classic athletic shoes',
-        price: 129.99,
-        inStock: true,
-        storeId: 'nike',
-        brand: 'Nike',
-        originalUrl: '#',
-        imageUrl: 'https://via.placeholder.com/400x400'
-    },
-    {
-        id: '2',
-        name: 'Adidas Ultraboost',
-        description: 'Running shoes',
-        price: 179.99,
-        inStock: true,
-        storeId: 'adidas',
-        brand: 'Adidas',
-        originalUrl: '#',
-        imageUrl: 'https://via.placeholder.com/400x400'
-    },
-];
-export function ProductsPage() {
-    const { addToCart } = useCart();
-    const [products, setProducts] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [searchTerm, setSearchTerm] = useState('');
-    useEffect(() => {
-        // Simulate API call with mock data
-        const fetchProducts = async () => {
-            try {
-                setLoading(true);
-                // Simulate network delay
-                await new Promise(resolve => setTimeout(resolve, 1000));
-                setProducts(mockProducts);
-                console.log('Products loaded:', mockProducts);
-            }
-            catch (error) {
-                console.error('Error loading products:', error);
-            }
-            finally {
-                setLoading(false);
-            }
-        };
-        fetchProducts();
-    }, []);
-    const filteredProducts = products.filter(product => product.name.toLowerCase().includes(searchTerm.toLowerCase()));
-    console.log('Rendering with:', {
-        loading,
-        productsCount: products.length,
-        filteredCount: filteredProducts.length
-    });
-    if (loading) {
-        return (_jsx("div", { className: "flex items-center justify-center min-h-screen", children: _jsx("div", { children: "Loading products..." }) }));
+import { motion } from 'framer-motion';
+import { fetchProducts } from '../services/shopifyClient';
+const filterByPrice = (price, range) => {
+    switch (range) {
+        case 'under50': return price < 50;
+        case '50to100': return price >= 50 && price <= 100;
+        case 'over100': return price > 100;
+        default: return true;
     }
-    return (_jsx("div", { className: "min-h-screen bg-gray-100", children: _jsxs("div", { className: "container px-4 py-8 mx-auto", children: [_jsx("h1", { className: "mb-8 text-3xl font-bold", children: "Available Products" }), _jsx("div", { className: "mb-8", children: _jsx("input", { type: "text", placeholder: "Search products...", className: "w-full p-3 border rounded-lg shadow-sm", value: searchTerm, onChange: (e) => setSearchTerm(e.target.value) }) }), filteredProducts.length === 0 ? (_jsx("div", { className: "py-8 text-center", children: "No products found" })) : (_jsx("div", { className: "grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4", children: filteredProducts.map((product) => (_jsxs("div", { className: "overflow-hidden transition-shadow bg-white rounded-lg shadow-md hover:shadow-lg", children: [product.imageUrl && (_jsx("img", { src: product.imageUrl, alt: product.name, className: "object-cover w-full h-48" })), _jsxs("div", { className: "p-4", children: [_jsx("h3", { className: "text-lg font-bold", children: product.name }), _jsx("p", { className: "text-gray-600", children: product.brand }), _jsxs("p", { className: "mt-2 text-lg font-semibold", children: ["$", product.price.toFixed(2)] }), _jsx("button", { className: "w-full py-2 mt-4 text-white transition-colors bg-blue-600 rounded hover:bg-blue-700", onClick: () => window.open(product.originalUrl, '_blank'), children: "View Details" }), _jsx("button", { className: "w-full py-2 mt-4 text-white transition-colors bg-blue-600 rounded hover:bg-blue-700", onClick: () => addToCart(product), children: "Add to Cart" })] })] }, product.id))) }))] }) }));
-}
+};
+const Products = () => {
+    const [products, setProducts] = useState([]);
+    const [filters, setFilters] = useState({
+        brand: '',
+        category: '',
+        priceRange: ''
+    });
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+        const loadProducts = async () => {
+            const data = await fetchProducts();
+            setProducts(data);
+            setLoading(false);
+        };
+        loadProducts();
+    }, []);
+    const brands = [...new Set(products.map(p => p.brand))];
+    const categories = [...new Set(products.map(p => p.category))];
+    const filteredProducts = products.filter(p => (!filters.brand || p.brand === filters.brand) &&
+        (!filters.category || p.category === filters.category) &&
+        (!filters.priceRange || filterByPrice(p.price, filters.priceRange)));
+    if (loading) {
+        return (_jsx("div", { className: "flex items-center justify-center min-h-screen", children: _jsx(motion.div, { animate: { rotate: 360 }, transition: { repeat: Infinity, duration: 1, ease: "linear" }, className: "w-16 h-16 border-4 border-blue-500 rounded-full" }) }));
+    }
+    return (_jsxs("div", { className: "min-h-screen bg-gradient-to-br from-slate-50 to-slate-100", children: [_jsx(motion.div, { initial: { opacity: 0, y: -20 }, animate: { opacity: 1, y: 0 }, className: "sticky top-0 z-10 p-4 bg-white/80 backdrop-blur-sm", children: _jsxs("div", { className: "flex flex-wrap gap-4 mx-auto max-w-7xl", children: [_jsxs("select", { value: filters.brand, onChange: e => setFilters({ ...filters, brand: e.target.value }), className: "px-4 py-2 border rounded-full border-slate-200 focus:ring-2 focus:ring-blue-500", children: [_jsx("option", { value: "", children: "All Brands" }), brands.map(brand => (_jsx("option", { value: brand, children: brand }, brand)))] }), _jsxs("select", { value: filters.category, onChange: e => setFilters({ ...filters, category: e.target.value }), className: "px-4 py-2 border rounded-full border-slate-200 focus:ring-2 focus:ring-blue-500", children: [_jsx("option", { value: "", children: "All Categories" }), categories.map(cat => (_jsx("option", { value: cat, children: cat }, cat)))] }), _jsxs("select", { value: filters.priceRange, onChange: e => setFilters({ ...filters, priceRange: e.target.value }), className: "px-4 py-2 border rounded-full border-slate-200 focus:ring-2 focus:ring-blue-500", children: [_jsx("option", { value: "", children: "All Prices" }), _jsx("option", { value: "under50", children: "Under $50" }), _jsx("option", { value: "50to100", children: "$50 to $100" }), _jsx("option", { value: "over100", children: "Over $100" })] })] }) }), _jsx("div", { className: "p-4 mx-auto max-w-7xl", children: _jsx("div", { className: "grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4", children: filteredProducts.map((product, index) => (_jsxs(motion.div, { initial: { opacity: 0, scale: 0.9 }, animate: { opacity: 1, scale: 1 }, transition: { delay: index * 0.1 }, className: "transition-all duration-300 bg-white shadow-sm group rounded-2xl hover:shadow-xl", children: [_jsx("div", { className: "overflow-hidden aspect-square rounded-t-2xl", children: _jsx(motion.img, { src: product.image, alt: product.title, className: "object-cover w-full h-full transition-transform duration-500 transform group-hover:scale-110", whileHover: { scale: 1.1 } }) }), _jsxs("div", { className: "p-4", children: [_jsx("h3", { className: "mb-2 text-lg font-semibold truncate text-slate-800", children: product.title }), _jsxs("div", { className: "flex items-center justify-between", children: [_jsxs("span", { className: "font-medium text-blue-600", children: ["$", product.price] }), _jsx(motion.button, { whileHover: { scale: 1.05 }, whileTap: { scale: 0.95 }, className: "px-4 py-2 text-white bg-blue-500 rounded-full hover:bg-blue-600", children: "Add to Cart" })] })] })] }, product.id))) }) })] }));
+};
+export default Products;
