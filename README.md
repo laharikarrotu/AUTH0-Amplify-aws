@@ -4,9 +4,9 @@
 
 [![Auth0 + AWS](https://custom-icon-badges.demolab.com/badge/-Auth0%20+%20AWS%20Amplify-FF9900?style=for-the-badge&logoColor=white&logo=aws)](https://github.com/yourusername/AUTH0-Amplify-aws)
 
-[![Stars](https://custom-icon-badges.demolab.com/github/stars/yourusername/AUTH0-Amplify-aws?style=for-the-badge&logo=star&color=yellow)](https://github.com/yourusername/AUTH0-Amplify-aws/stargazers)
-[![Issues](https://custom-icon-badges.demolab.com/github/issues/yourusername/AUTH0-Amplify-aws?style=for-the-badge&logo=issue&color=red)](https://github.com/yourusername/AUTH0-Amplify-aws/issues)
-[![License](https://custom-icon-badges.demolab.com/github/license/yourusername/AUTH0-Amplify-aws?style=for-the-badge&logo=law&color=blue)](LICENSE)
+[![Stars](https://custom-icon-badges.demolab.com/github/stars/yourusername/AUTH0-Amplify-aws?style=for-the-badge&logo=star&color=yellow)](https://github.com/laharikarrotu/AUTH0-Amplify-aws/stargazers)
+[![Issues](https://custom-icon-badges.demolab.com/github/issues/yourusername/AUTH0-Amplify-aws?style=for-the-badge&logo=issue&color=red)](https://github.com/laharikarrotu/AUTH0-Amplify-aws/issues)
+[![License](https://custom-icon-badges.demolab.com/github/license/laharikarrotu/AUTH0-Amplify-aws?style=for-the-badge&logo=law&color=blue)](LICENSE)
 
 ---
 
